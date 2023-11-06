@@ -5,17 +5,17 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.9</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.5.3</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>tn.esprit.spring</groupId>
-	<artifactId>gestion-station-ski</artifactId>
+	<groupId>tn.esprit.rh</groupId>
+	<artifactId>achat</artifactId>
 	<version>1.0</version>
-	<name>gestion-station-ski</name>
-	<description>Demo project for Spring Boot</description>
+	<name>achat</name>
+	<description>Projet pour le module DevOps</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,12 +28,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -44,15 +38,22 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.12</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -71,11 +72,14 @@
 			</plugin>
 		</plugins>
 	</build>
-<distributionManagement>
-<repository>
-<id>deploymentRepo</id>
-<name>admin</name>
-<url>http://192.168.33.10:8081/repository/maven-releases/</url>
-</repository>
-</distributionManagement>
+
+	<!-- Deploy to Nexus -->
+	<distributionManagement>
+		<repository>
+			<id>deploymentRepo</id>
+			<name>Nexus Repository</name>
+			<url>http://192.168.33.10:8081/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
+
 </project>
