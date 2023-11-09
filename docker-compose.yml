@@ -1,33 +1,40 @@
-    version: "3.8"
+version: "3.8"
 
 services:
   mysqldb:
+    container_name: mysqldb
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 'test'
-      MYSQL_DATABASE: achat_db
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=stationSki
+    networks:
+      - springapimysql-net
     ports:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
-  app-achat:
+
+  app:
+    container_name: app
     depends_on:
       - mysqldb
-    image : oumaima888/gestion-station-ski
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: on-failure
+    networks:
+      - springapimysql-net
     ports:
       - 8089:8089
-    environment:
-      SPRING_APPLICATION_JSON: '{
-      "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/stationSki?createDatabaseIfNotExist=true",
-      "spring.datasource.username" : "root",
-      "spring.datasource.password" : "test",
-      "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-      "spring.jpa.hibernate.ddl-auto" : "update"
-    }'
+    volumes:
+      - .m2:/root/.m2
     stdin_open: true
     tty: true
 
 volumes:
   db:
+
+networks:
+  springapimysql-net:
+    driver: bridge
