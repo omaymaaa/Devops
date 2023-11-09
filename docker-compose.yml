@@ -15,7 +15,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  app:
+  test-docker:
     container_name: app
     depends_on:
       - mysqldb
